@@ -3,9 +3,9 @@
 <head>
 	<title>hello j-lunker</title>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    <script defer src="../assets/lib/fontawesome-free-5.0.4/js/fontawesome-all.min.js"></script>
-	<link rel="stylesheet" type="text/css" href="../assets/lib/codemirror.css">
+    <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
+    <script defer src="../../assets/lib/fontawesome-free-5.0.4/js/fontawesome-all.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../assets/lib/codemirror.css">
 	<style type="text/css">
 		html {
 			height: 100%;
@@ -55,7 +55,13 @@
 			float: left;
 			margin-top: 2px;
 			overflow: hidden;
-			width: calc(50% - 15px);
+			width: calc(50% - 165px);
+		}
+		.content .code-tree {
+			float: left;
+			margin-top: 2px;
+			overflow: hidden;
+			width: 300px;
 		}
 		.content .code-box .CodeMirror {
 			margin: 2px 0 2px 0;
@@ -74,7 +80,7 @@
 		.content .eval-box {
 			float: left;
 			margin-top: 2px;
-			width: calc(50% - 15px);
+			width: calc(50% - 165px);
 		}
 		.content .eval-box iframe {
 			border: 0;
@@ -85,7 +91,7 @@
 		.footer {
 			background-color: #ececec;
 			box-sizing: border-box;
-			height: 27px;
+			height: 26px;
 			text-align: right;
 			box-shadow: 0 -1px 3px #aaa;
 			flex-grow: 0;
@@ -108,13 +114,16 @@
 
 <div class="wrapper">
 <div class="header">
-	<img src="../assets/favicon.ico">
+	<img src="../../assets/favicon.ico">
 	tree/basic - Jigsaw Live Demo - Visit http://rdk.zte.com.cn for more detail.
 </div>
 <div class="content">
 	<div class="toolbar">
-		<button><i class="far fa-file-code"></i></button>
+		<button onclick="toggleCodeTree()"><i class="far fa-file-code"></i></button>
 		<button><i class="fas fa-cog"></i></button>
+	</div>
+	<div class="code-tree">
+		
 	</div>
 	<div class="code-box">
 		<div class="header">
@@ -134,23 +143,23 @@
 	</div>
 </div>
 <div class="footer">
-	<button><img src="../assets/favicon.ico"></button>
+	<button><img src="../../assets/favicon.ico"></button>
 	<button><i class="fab fa-github-alt"></i></button>
 </div>
 </div>
 
-
-
-
-
-<script type="text/javascript" src="../assets/lib/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="../assets/lib/codemirror.js"></script>
+<script type="text/javascript" src="../../assets/lib/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="../../assets/lib/codemirror.js"></script>
 <script type="text/javascript">
 	var editor = CodeMirror.fromTextArea($('#code')[0], {
 		lineNumbers: true
 	});
 
 	var files = /* will-be-replaced-by-file-list */;
+
+	function toggleCodeTree() {
+		$('.content .code-box').css('width', 'calc(50% - 315px)');
+	}
 </script>
 </body>
 </html>

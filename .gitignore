@@ -34,6 +34,8 @@ package-lock.json
 /proc
 **/server/logs
 **/app/common
+**/app/j-lunker/web/temp
+/nginx*
 
 # e2e
 **/web/e2e/*.js

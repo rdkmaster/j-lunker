@@ -21,6 +21,16 @@ if (!template) {
         return {key: key, value: value};
     }
 
+    function parseEntry(entries, entryString) {
+        var parts = entryString.split(/\//g);
+        _.each(parts, function(part, index) {
+            
+        });
+        _.find(entries.children, function(item) {
+            // return item.
+        })
+    }
+
     return {
         post: function(request, script, header) {
             log (request);
@@ -37,14 +47,14 @@ if (!template) {
 
 privateKey = 'frozen-key'
 
-            var entries = [];
+            var entries = {name: 'Project', children: []};
             for(var i = 0; i < data.length; i++) {
                 var val = getValue(data[i]);
                 var match = val.key.match(/entries\[(.*?)\]\[content\]/);
                 if (match) {
                     var path = match[1];
                     entries.push(path);
-                    File.save('$web/' + privateKey + '/' + path, val.value);
+                    File.save('$web/temp/' + privateKey + '/' + path, val.value);
                 }
             }
 
@@ -53,11 +63,11 @@ privateKey = 'frozen-key'
             }
 
             var indexFile = template.replace('/* will-be-replaced-by-file-list */', JSON.stringify(entries));
-            File.save('$web/' + privateKey + '/index.html', indexFile);
+            File.save('$web/temp/' + privateKey + '/index.html', indexFile);
             template = '';
 
             header.put('Content-Type', 'text/html');
-            return '<script>location="/app/j-lunker/web/' + privateKey + '/index.html"</script>';
+            return '<script>location="/app/j-lunker/web/temp/' + privateKey + '/index.html"</script>';
         }
     }
 
