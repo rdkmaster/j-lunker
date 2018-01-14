@@ -5,7 +5,7 @@ if (!utils) {
 }
 var template;
 if (!template) {
-    template = File.readString('$base/template/index.tpl');
+    template = File.readString('$base/template/j-lunker-run.tpl');
 }
 
 (function() {
@@ -21,19 +21,53 @@ if (!template) {
         return {key: key, value: value};
     }
 
-    function parseEntry(entries, entryString) {
-        var parts = entryString.split(/\//g);
-        _.each(parts, function(part, index) {
-            
+    function parseEntry(entries, entryParts) {
+        var part = entryParts.shift();
+        if (!part) {
+            return;
+        }
+        var isFolder = entryParts.length > 0;
+        var found = _.find(entries.children, function(item) {
+            return isFolder == !!item.children && item.name == part;
         });
-        _.find(entries.children, function(item) {
-            // return item.
-        })
+        if (!found) {
+            found = {name: part};
+            if (isFolder) {
+                found.children = [];
+            }
+            entries.children.push(found);
+        }
+        if (isFolder) {
+            parseEntry(found, entryParts);
+        }
+    }
+
+    function createCodeTree(entry, parentPath) {
+        parentPath = parentPath ? parentPath : '';
+        var iconType = entry.hasOwnProperty('children') ? 'folder-open' : 'file';
+        var isFolder = iconType === 'folder-open';
+        var targetId = utils.randomNumber(10000000, 99999999);
+        var selfId = utils.randomNumber(10000000, 99999999);
+        var res = '<li id="' + selfId + '"';
+        if (isFolder) {
+            res += ' onclick="toggleFolder(' + selfId + ',' + targetId + ')" ';
+        } else {
+            res += ' onclick="loadFile(' + selfId + ',\'' + parentPath + '\')" ';
+        }
+        res += '><i class="far fa-' + iconType + '"></i> ' + entry.name + '</li>';
+
+        if (isFolder) {
+            res += '<li id="' + targetId + '"><ul>';
+            _.each(entry.children, function(item) {
+                res += createCodeTree(item, parentPath + '/' + item.name);
+            });
+            res += '</ul></li>';
+        }
+        return res;
     }
 
     return {
         post: function(request, script, header) {
-            log (request);
             if (!request) {
                 Request.completeWithError(400, '400, invalid parameters!');
             }
@@ -47,27 +81,31 @@ if (!template) {
 
 privateKey = 'frozen-key'
 
+
             var entries = {name: 'Project', children: []};
             for(var i = 0; i < data.length; i++) {
                 var val = getValue(data[i]);
                 var match = val.key.match(/entries\[(.*?)\]\[content\]/);
                 if (match) {
                     var path = match[1];
-                    entries.push(path);
+                    parseEntry(entries, path.split(/\//g));
                     File.save('$web/temp/' + privateKey + '/' + path, val.value);
                 }
             }
 
-            if (entries.length == 0) {
+            if (entries.children.length == 0) {
                 Request.completeWithError(400, '400, no entries found!');
             }
 
-            var indexFile = template.replace('/* will-be-replaced-by-file-list */', JSON.stringify(entries));
-            File.save('$web/temp/' + privateKey + '/index.html', indexFile);
+            var folder = 'app/j-lunker/web/temp/' + privateKey;
+            var indexFile = template.replace('/* to-be-replaced-with-file-list */', JSON.stringify(entries))
+                                    .replace('/* to-be-replaced-with-folder */', '"' + folder + '"')
+                                    .replace('<!-- to-be-replaced-with-code-tree -->', createCodeTree(entries))
+            File.save('$web/temp/' + privateKey + '/j-lunker-run.html', indexFile);
             template = '';
 
             header.put('Content-Type', 'text/html');
-            return '<script>location="/app/j-lunker/web/temp/' + privateKey + '/index.html"</script>';
+            return '<script>window.open("/' + folder + '/j-lunker-run.html", "_self")</script>';
         }
     }
 

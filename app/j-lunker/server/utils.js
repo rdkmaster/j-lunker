@@ -25,36 +25,10 @@
         }
         return s;
     }
-
-    function _getOwner(privateKey) {
-        var owner = _checkOwner();
-        if (!owner.hasOwnProperty('error')) {
-            return owner;
-        }
-        if (!privateKey) {
-            // error
-            return owner;
-        }
-
-        owner = Cache.get(privateKey);
-        if (owner) {
-            return owner;
-        }
-        
-        var r = Data.fetch('select id from user where private_key="' + privateKey + '"');
-        if (r.hasOwnProperty('error') || r.data.length == 0) {
-            Log.error('unable to get id from privateKey[' + privateKey + '], detail: ' + r);
-            return {error: 469, detail: 'invalid private key'};
-        }
-        owner = r.data[0][0];
-        Cache.put(privateKey, owner);
-        return owner;
-    }
     
     return {
         randomString: _randomString,
         randomNumber: _random,
-        genPrivateKey: _genPrivateKey,
-        getOwner: _getOwner
+        genPrivateKey: _genPrivateKey
     }
 })();
