@@ -31,11 +31,10 @@
 **/web/testem.log
 **/web/typings
 package-lock.json
-/proc
 **/server/logs
-**/app/common
-**/app/j-lunker/web/temp
-/nginx*
+**/j-lunker/job
+proc/logs
+nginx-1.11.9/logs
 
 # e2e
 **/web/e2e/*.js

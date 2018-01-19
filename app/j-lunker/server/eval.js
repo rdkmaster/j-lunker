@@ -5,7 +5,7 @@ if (!utils) {
 }
 var template;
 if (!template) {
-    template = File.readString('$base/template/j-lunker-run.tpl');
+    template = File.readString('j-lunker/j-lunker-run.tpl');
 }
 
 (function() {
@@ -52,7 +52,7 @@ if (!template) {
         if (isFolder) {
             res += ' onclick="toggleFolder(' + selfId + ',' + targetId + ')" ';
         } else {
-            res += ' onclick="loadFile(' + selfId + ',\'' + parentPath + '\')" ';
+            res += ' onclick="loadFile(' + selfId + ')" x-file="' + parentPath + '"';
         }
         res += '><i class="far fa-' + iconType + '"></i> ' + entry.name + '</li>';
 
@@ -77,11 +77,7 @@ if (!template) {
             }
 
             var privateKey = utils.genPrivateKey();
-
-
-privateKey = 'frozen-key'
-
-
+            var options = [];
             var entries = {name: 'Project', children: []};
             for(var i = 0; i < data.length; i++) {
                 var val = getValue(data[i]);
@@ -89,7 +85,11 @@ privateKey = 'frozen-key'
                 if (match) {
                     var path = match[1];
                     parseEntry(entries, path.split(/\//g));
-                    File.save('$web/temp/' + privateKey + '/' + path, val.value);
+                    File.save('j-lunker/job/' + privateKey + '/' + path, val.value);
+                }
+                match = val.key.match(/option\[(.*?)\]/);
+                if (match) {
+                    options.push(match[1] + '=' + encodeURI(val.value));
                 }
             }
 
@@ -97,15 +97,15 @@ privateKey = 'frozen-key'
                 Request.completeWithError(400, '400, no entries found!');
             }
 
-            var folder = 'app/j-lunker/web/temp/' + privateKey;
+            var folder = 'j-lunker/job/' + privateKey;
             var indexFile = template.replace('/* to-be-replaced-with-file-list */', JSON.stringify(entries))
                                     .replace('/* to-be-replaced-with-folder */', '"' + folder + '"')
-                                    .replace('<!-- to-be-replaced-with-code-tree -->', createCodeTree(entries))
-            File.save('$web/temp/' + privateKey + '/j-lunker-run.html', indexFile);
-            template = '';
+                                    .replace('<!-- to-be-replaced-with-file-tree -->', createCodeTree(entries))
+            File.save('j-lunker/job/' + privateKey + '/j-lunker-run.html', indexFile);
 
             header.put('Content-Type', 'text/html');
-            return '<script>window.open("/' + folder + '/j-lunker-run.html", "_self")</script>';
+            options = options.length > 0 ? '?' + options.join('&') : '';
+            return '<script>window.open("/' + folder + '/j-lunker-run.html' + options + '", "_self")</script>';
         }
     }
 
