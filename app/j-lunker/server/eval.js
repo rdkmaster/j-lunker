@@ -5,7 +5,11 @@ if (!utils) {
 }
 var template;
 if (!template) {
-    template = File.readString('j-lunker/j-lunker-run.tpl');
+    template = File.readString('app/j-lunker/template/j-lunker-run.html.tpl');
+}
+var mainJs;
+if (!mainJs) {
+    mainJs = File.readString('app/j-lunker/template/main.js');
 }
 
 (function() {
@@ -85,7 +89,7 @@ if (!template) {
                 if (match) {
                     var path = match[1];
                     parseEntry(entries, path.split(/\//g));
-                    File.save('j-lunker/job/' + privateKey + '/' + path, val.value);
+                    File.save('www/j-lunker/job/' + privateKey + '/' + path, val.value);
                 }
                 match = val.key.match(/option\[(.*?)\]/);
                 if (match) {
@@ -101,7 +105,8 @@ if (!template) {
             var indexFile = template.replace('/* to-be-replaced-with-file-list */', JSON.stringify(entries))
                                     .replace('/* to-be-replaced-with-folder */', '"' + folder + '"')
                                     .replace('<!-- to-be-replaced-with-file-tree -->', createCodeTree(entries))
-            File.save('j-lunker/job/' + privateKey + '/j-lunker-run.html', indexFile);
+            File.save('www/j-lunker/job/' + privateKey + '/j-lunker-run.html', indexFile);
+            File.save('www/j-lunker/job/' + privateKey + '/main.js', mainJs);
 
             header.put('Content-Type', 'text/html');
             options = options.length > 0 ? '?' + options.join('&') : '';

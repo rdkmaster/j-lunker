@@ -43,6 +43,7 @@
 		}
 		.content {
 			flex-grow: 1;
+			overflow: hidden;
 		}
 		.content .splitor {
 			float: left;
@@ -50,14 +51,6 @@
 			width: 4px;
 			height: calc(100vh - 60px);
 			background-color: #bbb;
-		}
-		.content .close-button {
-			width: calc(100% - 3px);
-			position: absolute;
-			z-index: 7;
-			top: 1px;
-			text-align: right;
-			cursor: pointer;
 		}
 		.content .toolbar {
 			float: left;
@@ -73,11 +66,12 @@
 			margin: 12px 0 0 6px;
 		}
 		.content .file-tree {
-			position: relative;
 			float: left;
 			margin-top: 0px;
 			width: 300px;
 			overflow: hidden;
+			user-select: none;
+			height: calc(100vh - 62px);
 		}
 		.content .file-tree .file-entry-activated {
 			background-color: #416b79;
@@ -87,12 +81,12 @@
 			font-size: 16px;
 			line-height: 24px;
 			font-family: Consolas;
-			margin-left: -22px;
+			margin: 4px 0 0 -22px;
 		}
 		.content .code-box {
 			float: left;
-			position: relative;
 			margin-top: 0px;
+			user-select: none;
 			width: calc(50% - 169px);
 		}
 		.content .code-box .CodeMirror {
@@ -102,7 +96,6 @@
 			font-family: Consolas;
 		}
 		.content .eval-box {
-			position: relative;
 			float: left;
 			margin-top: 1px;
 			width: calc(50% - 169px);
@@ -140,6 +133,15 @@
 			line-height: 100vh;
 			display: none;
 		}
+		.close-button {
+			position: fixed;
+			left: 0;
+			top: 0;
+			z-index: 7;
+			cursor: pointer;
+			z-index: 1000;
+			display: none;
+		}
 	</style>
 </head>
 <body>
@@ -154,22 +156,20 @@
 <div class="content">
 	<div class="toolbar">
 		<span class="icon-activated icon far fa-copy" onclick="onTogglePanel('.content .file-tree')"></span>
-		<span class="icon fas fa-cog"></span>
 		<span class="icon-activated icon far fa-file-code" onclick="onTogglePanel('.content .code-box')"></span>
 		<span class="icon-activated icon fas fa-play" onclick="onTogglePanel('.content .eval-box')"></span>
+
+		<span style="margin-top:24px" class="icon fas fa-cog"></span>
 	</div>
 	<div class="file-tree">
-		<div class="close-button"><span class="activated icon fas fa-times"></span></div>
 		<ul class="file-entry"><!-- to-be-replaced-with-file-tree --></ul>
 	</div>
 	<div class="splitor"></div>
 	<div class="code-box">
-		<div class="close-button"><span class="activated icon fas fa-times"></span></div>
 		<textarea id="code" style="display:none;"></textarea>
 	</div>
 	<div class="splitor"></div>
 	<div class="eval-box">
-		<div class="close-button"><span class="activated icon fas fa-times"></span></div>
 		<iframe id="evaluator"></iframe>
 	</div>
 </div>
@@ -183,6 +183,8 @@
 	Loading...
 </div>
 
+<div class="close-button"><i class="fas fa-times"></i></div>
+
 <script type="text/javascript" src="../../assets/lib/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="../../assets/lib/codemirror/codemirror.js"></script>
 <script type="text/javascript" src="../../assets/lib/codemirror/mode/javascript.js"></script>
@@ -195,20 +197,18 @@
 	var needManualResize = false;
 	var editingFile = '';
 	var editor = CodeMirror.fromTextArea($('#code')[0], { lineNumbers: true });
-	editor.on('change', function(instance, changeObj) {
-		if (changeObj.origin == 'setValue') {
-			// change triggered by setValue()
-			return;
-		}
-		if (saveFileTimer != -1) {
-			clearTimeout(saveFileTimer);
-		}
-		saveFileTimer = setTimeout(saveFile, 500);
-	});
+	editor.on('change', onEditorChange);
 
 	$(window).bind('resize', onResize);
 	$('.content .splitor').bind('mousedown', onMouseDown);
-	$('.content .close-button').bind('click', onTogglePanel);
+	$('.content .close-button span').bind('click', onTogglePanel);
+	$('.close-button').bind('click', onTogglePanel);
+	$('.content .file-tree').bind('mouseover', onToggleCloseButton);
+	$('.content .file-tree').bind('mouseout', onToggleCloseButton);
+	$('.content .code-box').bind('mouseover', onToggleCloseButton);
+	$('.content .code-box').bind('mouseout', onToggleCloseButton);
+	$('.content .eval-box').bind('mouseover', onToggleCloseButton);
+	$('.content .eval-box').bind('mouseout', onToggleCloseButton);
 
 	initStatus();
 
@@ -261,8 +261,20 @@
 		});
 	}
 
+	function onEditorChange(instance, changeObj) {
+		if (changeObj.origin == 'setValue') {
+			// change triggered by setValue()
+			return;
+		}
+		if (saveFileTimer != -1) {
+			clearTimeout(saveFileTimer);
+		}
+		saveFileTimer = setTimeout(saveFile, 500);
+	}
+
 	function onTogglePanel(target) {
-		var $target = this === window ? $(target) : $(this).parent();
+		target = this === window ? target : $(this).attr('x-target');
+		var $target = $(target);
 		var $button = getCorrespondingButton($target);
 		if (elementVisible($target)) {
 			$target.hide();
@@ -301,6 +313,7 @@
 
 	var resizeIFrameTimer = -1;
 	function resizePanels() {
+		$('.close-button').hide();
 		needManualResize = true;
 
 		var maxWidth = window.innerWidth - 30;
@@ -401,9 +414,11 @@
 		$(document).bind('mouseup', onMouseUp);
 		// hide iframe to make sure it won't swallow the mousemove event
 		$('#evaluator').hide();
+		$('.close-button').hide();
 	}
 
 	function onMouseUp() {
+		resizePanels();
 		$dragging = undefined;
 		$(document).unbind('mousemove', onMouseMove);
 		$(document).unbind('mouseup', onMouseUp);
@@ -415,6 +430,7 @@
 		if (!$dragging) {
 			return;
 		}
+		$('.close-button').hide();
 		needManualResize = true;
 
 		var maxWidth = window.innerWidth - 100;
@@ -429,10 +445,24 @@
 	}
 
 	function onResize() {
+		$('.close-button').hide();
 		if (!needManualResize) {
 			return;
 		}
 		resizePanels();
+	}
+
+	function onToggleCloseButton(event) {
+		var $closeButton = $('.close-button');
+		var offset = $(this).next().offset();
+		var left = offset ? offset.left : window.innerWidth;
+		$closeButton.css('left', left - 15);
+		$closeButton.css('top', 32);
+
+		if (event.type == 'mouseover') {
+			$closeButton.attr('x-target', '.content .' + $(this).attr('class'));
+			$closeButton.show();
+		}
 	}
 
 	function elementVisible(element) {
