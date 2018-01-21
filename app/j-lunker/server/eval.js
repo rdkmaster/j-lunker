@@ -83,6 +83,7 @@ if (!mainJs) {
             var privateKey = utils.genPrivateKey();
             var options = [];
             var entries = {name: 'Project', children: []};
+            var title = 'J-lunker - The online evaluator';
             for(var i = 0; i < data.length; i++) {
                 var val = getValue(data[i]);
                 var match = val.key.match(/entries\[(.*?)\]\[content\]/);
@@ -95,6 +96,9 @@ if (!mainJs) {
                 if (match) {
                     options.push(match[1] + '=' + encodeURI(val.value));
                 }
+                if (val.key == 'title') {
+                    title = val.value;
+                }
             }
 
             if (entries.children.length == 0) {
@@ -105,6 +109,7 @@ if (!mainJs) {
             var indexFile = template.replace('/* to-be-replaced-with-file-list */', JSON.stringify(entries))
                                     .replace('/* to-be-replaced-with-folder */', '"' + folder + '"')
                                     .replace('<!-- to-be-replaced-with-file-tree -->', createCodeTree(entries))
+                                    .replace(/<!-- to-be-replaced-with-title -->/g, title)
             File.save('www/j-lunker/job/' + privateKey + '/j-lunker-run.html', indexFile);
             File.save('www/j-lunker/job/' + privateKey + '/main.js', mainJs);
 

@@ -1,0 +1,17 @@
+h1 {
+	font-size: 30px;
+	transition: .5s;
+}
+
+h1:hover {
+	color: red;
+}
+
+a {
+	cursor: pointer;
+	transition: .3s;
+}
+
+a:hover {
+	color: blue;
+}

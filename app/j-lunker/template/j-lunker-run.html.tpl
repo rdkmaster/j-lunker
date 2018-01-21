@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>hello j-lunker</title>
+	<title><!-- to-be-replaced-with-title --></title>
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
 	<script defer src="../../assets/lib/fontawesome-free-5.0.4/js/fontawesome-all.min.js"></script>
@@ -149,9 +149,7 @@
 <div class="wrapper">
 <div class="header">
 	<img src="../../assets/favicon.ico">
-	<span>
-		tree/basic - Jigsaw Live Demo - Visit http://rdk.zte.com.cn for more detail.
-	</span>
+	<span><!-- to-be-replaced-with-title --></span>
 </div>
 <div class="content">
 	<div class="toolbar">

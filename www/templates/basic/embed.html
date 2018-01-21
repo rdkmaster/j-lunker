@@ -1,0 +1,53 @@
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+  <form id="mainForm" method="post" action="http://rdk.zte.com.cn/rdk/service/app/j-lunker/server/eval" target="_self">
+    <input type="hidden" name="option[show]" value="index.html,preview" />
+    <input type="hidden" name="entries[asset/styles.css][content]" value="
+h1 {
+  font-size: 30px;
+  transition: .5s;
+}
+
+h1:hover {
+  color: red;
+}
+
+a {
+  cursor: pointer;
+  transition: .3s;
+}
+
+a:hover {
+  color: blue;
+}
+" />
+    <input type="hidden" name="entries[script/script.js][content]" value="
+function gotoProject() {
+  window.open('https://github.com/rdkmaster/j-lunker');
+}
+    ">
+    <input type="hidden" name="entries[index.html][content]" value="
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;title&gt;J-lunker basic template&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;asset/styles.css&quot;&gt;
+  &lt;script type=&quot;text/javascript&quot; src=&quot;script/script.js&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello J-lunker!&lt;/h1&gt;
+&lt;p&gt;
+  This is the basic template.
+  &lt;a onclick=&quot;gotoProject()&quot;&gt;Click here to star us.&lt;/a&gt;
+&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+    ">
+    <input type="hidden" name="title" value="J-lunker basic template." />
+  </form>
+  <script>document.getElementById("mainForm").submit();</script>
+</body>
+</html>
