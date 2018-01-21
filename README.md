@@ -12,7 +12,7 @@ As you may alreay know, embed.plnkr.co is doing the exactly samething, and it is
 
 - **GFW troubles free**: This is the main reason why I create j-lunker. The GFW has been making a lot of troubles, including sharing and evaluating codes online with plunker. The readers of Jigsaw's demo code complain a lot about this.
 - **Faster network access**: I deployed an instance of j-lunker in the mainland of China, which is most of Jigsaw's document readers are located at, they will be happy if the demo code shows and evaluates faster.
-- **Evaluate codes to authorized readers, but not for everyone**: J-lunker is very very lightweight, and quite easy to deploy, it can even deployed with a PC! And therefor, you can use j-lunker within a contained and secure environment. Because of this, you do not need to worry the codes are stolen by someone unexpected or by plunker itself when sending then to plunker.
+- **Evaluate codes to authorized readers, but not for everyone**: J-lunker is very very lightweight, and quite easy to [deploy](https://github.com/rdkmaster/j-lunker#how-to-deploy), it can even deployed with a PC! And therefor, you can use j-lunker within a contained and secure environment. Because of this, you do not need to worry the codes are stolen by someone unexpected or by plunker itself when sending then to plunker.
 
 J-lunker is a better choice for you if you are having one of these reasons.
 
@@ -88,3 +88,37 @@ Notice that the core of this file is a form, with a few hidden inputs, the `name
 - `option[show]`: the key word `option` is the type of the property, and `show` is the option key, the value `index.html,preview` tells j-lunker to open `index.html` file and the evaluating box when the page is loaded.
 - `entries[asset/styles.css][content]`: `entries` is a type, and `asset/styles.css` defines a file, located at `asset` dir and the name is `styles.css`. The value of this property is the content of the file, uri encoding is needed.
 - `title`: this property defines the title of the evaluated page.
+
+## How to deploy
+
+You do need to deploy j-lunker if you just want to evaluate your codes, check [this section](https://github.com/rdkmaster/j-lunker#how-to-use) before you start to deploy your own j-lunker server.
+
+This section tells you how to deploy a j-lunker server in your own server, by doing this, you can evaluate the codes within your own server, the codes are not sent to public and they are safe.
+
+1. Clone or [download](https://codeload.github.com/rdkmaster/j-lunker/zip/master) this repo and unzip to any dir.
+2. J-lunker's server need jre 1.8 or later, please install jre 1.8 or add a JAVA_HOME environment variable. You can also copy the jre to `proc/bin/jre` in case of you can not install jre 1.8 - maybe you need another version of jre.
+3. Just simply run `start.bat`, j-lunker's server and web server should start running if you are going to deploy j-lunker in Windows or just for a test. You can try your j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use). There are some more steps to do if you are going to deploy j-lunker in Linux or any other OS.
+4. Config your web server, I will show you how to do this by using nginx as the web server. You need to add a reverse proxy config by adding the following lines to nginx.conf:
+
+```
+location /rdk/service {
+    proxy_pass http://localhost:5812;
+}
+```
+
+This config tell nginx to proxy all `/rdk/service` request to j-lunker's server. Don't forget to restart or reload nginx.
+
+5. Make the `www` dir as the root of your web server, or add the following lines to your nginx.conf in case of your web server has other root:
+```
+location /j-lunker {
+    root   /dir/to/j-lunker/www/;
+    index  index.html index.htm;
+}
+```
+6. Goto `proc/bin` dir, and run `sh run.sh` command, j-lunker's server should start running now.
+7. Everything is done, you can try your j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use).
+8. Feel free to leave me an issue if you have any problem while deploying j-lunker.
+
+## Contributing
+
+Any PR is welcomed, please feel free to push me PRs.
