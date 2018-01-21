@@ -1,4 +1,4 @@
-# j-lunker
+# J-lunker
 
 ## What j-lunker can do
 
@@ -30,7 +30,8 @@ The usage is very similar to embed.plnkr.co, copy and save the following code to
 <meta charset="UTF-8">
 </head>
 <body>
-  <form id="mainForm" method="post" action="http://rdk.zte.com.cn/rdk/service/app/j-lunker/server/eval" target="_self">
+  <form id="mainForm" method="post" target="_self"
+  		action="http://rdk.zte.com.cn/rdk/service/app/j-lunker/server/eval">
     <input type="hidden" name="option[show]" value="index.html,preview" />
     <input type="hidden" name="entries[asset/styles.css][content]" value="
 h1 {
