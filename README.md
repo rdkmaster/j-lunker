@@ -18,7 +18,7 @@ J-lunker is a better choice for you if you are having one of these reasons.
 
 ## Where are the codes stored
 
-J-lunker does not store the codes permanently, its users store them. J-lunker just only tries to evaluate the codes. This is nice if you have a lot of codes to be evaluated like the demos of [Jigsaw](https://github.com/rdkmaster/jigsaw) or [angular.io](angular.io) or [angular.cn](angular.cn). Storing the codes by yourself makes it very easy to generate or update the codes automatically by some tool like CI or scripts.
+J-lunker does not store the codes permanently, its users store them. J-lunker just only tries to evaluate the codes. This is nice if you have a lot of codes to be evaluated like the demos of [Jigsaw](https://github.com/rdkmaster/jigsaw) or [angular.io](https://angular.io) or [angular.cn](https://angular.cn). Storing the codes by yourself makes it very easy to generate or update the codes automatically by some tool like CI or scripts.
 
 ## How to use
 
