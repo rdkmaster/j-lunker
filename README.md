@@ -99,8 +99,10 @@ Follow these steps:
 
 1. Clone or [download](https://codeload.github.com/rdkmaster/j-lunker/zip/master) this repo and unzip to any dir.
 2. J-lunker's server need jre 1.8 or later, please install jre 1.8 or add a JAVA_HOME environment variable. You can also copy the jre to `proc/bin/jre` in case of you can not install jre 1.8 - maybe you need another version of jre.
-3. Just simply run `start.bat`, j-lunker's server and web server should start running if you are going to deploy j-lunker in Windows or just for a test. You can try your j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use). There are some more steps to do if you are going to deploy j-lunker in Linux or any other OS.
-4. Config your web server, I will show you how to do this by using nginx as the web server. You need to add a reverse proxy config by adding the following lines to nginx.conf:
+3. Just simply run `start.bat`, j-lunker's server and web server should start running if you are going to deploy j-lunker in Windows or just for a test. You can try your j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use). Remember to replace the target server from `http://rdk.zte.com.cn` to `http://localhost:8080`.
+
+There are some more steps to do if you are going to deploy j-lunker in Linux or any other OS.
+1. Config your web server, I will show you how to do this by using nginx as the web server. You need to add a reverse proxy config by adding the following lines to nginx.conf under the server section:
 
 ```
 location /rdk/service {
@@ -108,18 +110,24 @@ location /rdk/service {
 }
 ```
 
-This config tell nginx to proxy all `/rdk/service` request to j-lunker's server. Don't forget to restart or reload nginx.
+This config tell nginx to proxy every `/rdk/service` request to j-lunker's server. Don't forget to restart or reload nginx.
 
-5. Make the `www` dir as the root of your web server, or add the following lines to your nginx.conf in case of your web server has other root:
+Check [this file](https://github.com/rdkmaster/j-lunker/blob/master/nginx-1.11.9/conf/nginx.conf) if you need to shoot some trouble with your web server.
+
+2. Make the `www` dir as the root of your web server, or add the following lines to your nginx.conf in case of your web server has other root:
 ```
 location /j-lunker {
     root   /dir/to/j-lunker/www/;
     index  index.html index.htm;
 }
 ```
-6. Goto `proc/bin` dir, and run `sh run.sh` command, j-lunker's server should start running now.
-7. Everything is done, you can try your j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use).
-8. Feel free to leave me an issue if you have any problem while deploying j-lunker.
+
+Check [this file](https://github.com/rdkmaster/j-lunker/blob/master/nginx-1.11.9/conf/nginx.conf) if you need to shoot some trouble with your web server.
+
+3. Change the listening port of the web server to any one you like, the default value is `8080`.
+4. Goto `proc/bin` dir, and run `sh run.sh` command, j-lunker's server should start running now. Notice once more, the server needs jre 1.8+.
+5. Everything is done, you can try your own j-lunker by following [this section](https://github.com/rdkmaster/j-lunker#how-to-use). Remember to replace the target server from `http://rdk.zte.com.cn` to `http://localhost:8080`.
+6. Feel free to leave me an issue if you have any problem while deploying j-lunker.
 
 ## Contributing
 
