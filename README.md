@@ -18,7 +18,7 @@ J-lunker is a better choice for you if you are having one of these reasons.
 
 ## Where are the codes stored
 
-J-lunker does not store the codes permanently, our users store them. J-lunker just only tries to evaluate the codes. This is nice if you have a lot of codes to be evaluated, and the codes are generated and updated automatically by some tool like CI or scripts.
+J-lunker does not store the codes permanently, its users store them. J-lunker just only tries to evaluate the codes. This is nice if you have a lot of codes to be evaluated like the demos of [Jigsaw](https://github.com/rdkmaster/jigsaw) or [angular.io](angular.io) or [angular.cn](angular.cn). Storing the codes by yourself makes it very easy to generate or update the codes automatically by some tool like CI or scripts.
 
 ## How to use
 
@@ -91,9 +91,11 @@ Notice that the core of this file is a form, with a few hidden inputs, the `name
 
 ## How to deploy
 
-You do need to deploy j-lunker if you just want to evaluate your codes, check [this section](https://github.com/rdkmaster/j-lunker#how-to-use) before you start to deploy your own j-lunker server.
+You do not need to deploy j-lunker if you just simply want to evaluate your codes, check [this section](https://github.com/rdkmaster/j-lunker#how-to-use) before you start to deploy your own j-lunker server.
 
-This section tells you how to deploy a j-lunker server in your own server, by doing this, you can evaluate the codes within your own server, the codes are not sent to public and they are safe.
+This section tells you how to deploy a j-lunker server in your own server, by doing this, you can evaluate the codes within your own server, the codes will not be sent to public and they are safe.
+
+Follow these steps:
 
 1. Clone or [download](https://codeload.github.com/rdkmaster/j-lunker/zip/master) this repo and unzip to any dir.
 2. J-lunker's server need jre 1.8 or later, please install jre 1.8 or add a JAVA_HOME environment variable. You can also copy the jre to `proc/bin/jre` in case of you can not install jre 1.8 - maybe you need another version of jre.
