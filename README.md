@@ -12,7 +12,7 @@ As you may alreay know, embed.plnkr.co is doing the exactly samething, and it is
 
 - **GFW troubles free**: This is the main reason why I create j-lunker. The GFW has been making a lot of troubles, including sharing and evaluating codes online with plunker. The readers of Jigsaw's demo code complain a lot about this.
 - **Faster network access**: I deployed an instance of j-lunker in the mainland of China, which is most of Jigsaw's document readers are located at, they will be happy if the demo code shows and evaluates faster.
-- **Evaluate codes to authorized readers, but not for everyone**: J-lunker is very very lightweight, and quite easy to [deploy](https://github.com/rdkmaster/j-lunker#how-to-deploy), it can even deployed with a PC! And therefor, you can use j-lunker within a contained and secure environment. Because of this, you do not need to worry the codes are stolen by someone unexpected or by plunker itself when sending then to plunker.
+- **Evaluate codes to authorized readers, but not for everyone**: J-lunker is very very lightweight, and quite easy to [deploy](https://github.com/rdkmaster/j-lunker#how-to-deploy), it can even deployed with a PC! And therefor, you can use j-lunker within a contained and secure environment. Because of this, you do not need to worry the codes are stolen by someone unexpected or by plunker itself when sending them to plunker.
 
 J-lunker is a better choice for you if you are having one of these reasons.
 
@@ -88,6 +88,8 @@ Notice that the core of this file is a form, with a few hidden inputs, the `name
 - `option[show]`: the key word `option` is the type of the property, and `show` is the option key, the value `index.html,preview` tells j-lunker to open `index.html` file and the evaluating box when the page is loaded.
 - `entries[asset/styles.css][content]`: `entries` is a type, and `asset/styles.css` defines a file, located at `asset` dir and the name is `styles.css`. The value of this property is the content of the file, uri encoding is needed.
 - `title`: this property defines the title of the evaluated page.
+
+Go and check the live demos of Jigsaw: <http://rdk.zte.com.cn/j-lunker>
 
 ## How to deploy
 
