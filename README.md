@@ -1,5 +1,7 @@
 # J-lunker
 
+[中文版](README.zh.md)
+
 ## What j-lunker can do
 
 J-lunker evaluates your codes online, and your codes will be re-evaluated as soon as they are modified. It is convenient to share the codes and their result/behavior to someone else.
@@ -89,7 +91,9 @@ Notice that the core of this file is a form, with a few hidden inputs, the `name
 - `entries[asset/styles.css][content]`: `entries` is a type, and `asset/styles.css` defines a file, located at `asset` dir and the name is `styles.css`. The value of this property is the content of the file, uri encoding is needed.
 - `title`: this property defines the title of the evaluated page.
 
-These are some examples, the production live demos of Jigsaw: <http://rdk.zte.com.cn/j-lunker>. [Our CI](https://travis-ci.org/rdkmaster/jigsaw/branches) checks the site and these live demos twice a day to make sure the site is available.
+These are some examples, the production live demos of Jigsaw: <http://rdk.zte.com.cn/j-lunker>.
+
+[Our CI](https://travis-ci.org/rdkmaster/jigsaw/branches) checks the site and these live demos twice a day to make sure the site is available.
 
 ## How to deploy
 
