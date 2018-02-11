@@ -105,7 +105,7 @@ function gotoProject() {
 
 1. 克隆或者[下载](https://codeload.github.com/rdkmaster/j-lunker/zip/master)这个仓库的代码，并且解压缩到一个任意目录，最好不要解压到有空格或者中文的目录中。
 2. J-lunker的服务端需要jre1.8以上，如果你的运行环境上没有，则请安装或者设置JAVA_HOME指向jre1.8。如果你的环境无法安装或者不方便设置环境变量，你也可以将jre1.8拷贝到`proc/bin/jre`目录下。
-3. 如果你想将J-lunker部署在Windows上，或者只想试一试，那么双击`start.bat`就可以启动J-lunker的服务端和web服务器了。接下来你可以按照[这个小节](https://github.com/rdkmaster/j-lunker#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8)的方法来测试你自己的J-lunker服务器了。别忘了将例子中的`http://rdk.zte.com.cn`改为`http://localhost:8080`。
+3. 如果你想将J-lunker部署在Windows上，或者只想试一试，那么双击`start.bat`就可以启动J-lunker的服务端和web服务器了。接下来你可以按照[这个小节](https://github.com/rdkmaster/j-lunker/blob/master/README.zh.md#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8)的方法来测试你自己的J-lunker服务器了。别忘了将例子中的`http://rdk.zte.com.cn`改为`http://localhost:8080`。
 
 如果你想将J-lunker部署在其他操作系统上，则还要继续：
 
@@ -134,7 +134,7 @@ location /j-lunker {
 
 3. 将web服务器的监听端口改为任何你喜欢的，默认是`8080`。
 4. 到`proc/bin`目录下，执行`sh run.sh`命令，它将启动J-lunker的服务端，再次提醒，J-lunker的服务端需要jre1.8以上。
-5. 至此大功告成，接下来你可以按照[这个小节](https://github.com/rdkmaster/j-lunker#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8)的方法来测试你自己的J-lunker服务器了。别忘了将例子中的`http://rdk.zte.com.cn`改为`http://localhost:8080`。
+5. 至此大功告成，接下来你可以按照[这个小节](https://github.com/rdkmaster/j-lunker/blob/master/README.zh.md#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8)的方法来测试你自己的J-lunker服务器了。别忘了将例子中的`http://rdk.zte.com.cn`改为`http://localhost:8080`。
 6. 如果你碰到了任何困难，欢迎给我提issue。
 
 ## 共创共建
