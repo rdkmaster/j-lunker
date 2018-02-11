@@ -13,7 +13,7 @@ J-lunker is very similar to embed.plnkr.co, including the UI and the usage, even
 As you may alreay know, embed.plnkr.co is doing the exactly samething, and it is amazing, so why we need j-lunker? Here are the reasons:
 
 - **GFW troubles free**: This is the main reason why I create j-lunker. The GFW has been making a lot of troubles, including sharing and evaluating codes online with plunker. The readers of Jigsaw's demo code complain a lot about this.
-- **Faster network access**: I deployed an instance of j-lunker in the mainland of China, which is most of Jigsaw's document readers are located at, they will be happy if the demo code shows and evaluates faster.
+- **Faster network access**: I deployed [an instance of j-lunker](http://rdk.zte.com.cn/j-lunker) in the mainland of China, which is most of Jigsaw's document readers are located at, they will be happy if the demo code shows and evaluates faster.
 - **Evaluate codes to authorized readers, but not for everyone**: J-lunker is very very lightweight, and quite easy to [deploy](https://github.com/rdkmaster/j-lunker#how-to-deploy), it can even deployed with a PC! And therefor, you can use j-lunker within a contained and secure environment. Because of this, you do not need to worry the codes are stolen by someone unexpected or by plunker itself when sending them to plunker.
 
 J-lunker is a better choice for you if you are having one of these reasons.
@@ -138,3 +138,5 @@ Check [this file](https://github.com/rdkmaster/j-lunker/blob/master/nginx-1.11.9
 ## Contributing
 
 Any PR is welcomed, please feel free to push me PRs.
+
+[J-lunker's index page](http://rdk.zte.com.cn/j-lunker) is very simple now, and I will not spend much time on it, please help me to fix it, take a look at [this issue](https://github.com/rdkmaster/j-lunker/issues/1) for more information.
