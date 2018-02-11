@@ -89,7 +89,7 @@ Notice that the core of this file is a form, with a few hidden inputs, the `name
 - `entries[asset/styles.css][content]`: `entries` is a type, and `asset/styles.css` defines a file, located at `asset` dir and the name is `styles.css`. The value of this property is the content of the file, uri encoding is needed.
 - `title`: this property defines the title of the evaluated page.
 
-Go and check the live demos of Jigsaw: <http://rdk.zte.com.cn/j-lunker>
+This is some examples, the production live demos of Jigsaw: <http://rdk.zte.com.cn/j-lunker>
 
 ## How to deploy
 
