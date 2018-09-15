@@ -1,18 +1,9 @@
-
-var utils;
-if (!utils) {
-    utils = require('$svr/utils.js');
-}
-var template;
-if (!template) {
-    template = File.readString('app/j-lunker/template/j-lunker-run.html.tpl');
-}
-var mainJs;
-if (!mainJs) {
-    mainJs = File.readString('app/j-lunker/template/main.js');
-}
-
 (function() {
+
+    var utils = require('$svr/utils.js');
+    var template = File.readString('app/j-lunker/template/j-lunker-run.html.tpl');
+    var mainJs = File.readString('app/j-lunker/template/main.js');
+
     function getValue(item) {
         item = item.replace(/\+/g, ' ');
         item = decodeURI(item).replace(/%([a-z0-9]{2})/ig, function(found, charCode) {
